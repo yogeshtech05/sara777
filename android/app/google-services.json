@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "567051794389",
+    "project_id": "panlelsara",
+    "storage_bucket": "panlelsara.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567051794389:android:cc799d1d2db5beab77af5c",
+        "android_client_info": {
+          "package_name": "com.sarrra7771.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv05zBiyZy5imymxGnMrfgsgOcx9qGm5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

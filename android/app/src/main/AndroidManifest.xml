@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ===== Device features (optional) ===== -->
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    <uses-feature android:name="android.hardware.fingerprint" android:required="false" />
+
+    <!-- ===== Core permissions ===== -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+
+    <!-- Optional (use only if you really need them in app logic) -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
+
+
+
+    <application
+        android:name="${applicationName}"
+        android:label="Sara777"
+        android:icon="@mipmap/launcher_icon"
+        android:hardwareAccelerated="true"
+        android:enableOnBackInvokedCallback="true"
+        android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode">
+
+        <!-- (Optional) FCM defaults -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="default_channel" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/launcher_icon" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode">
+
+            <!-- Splash/background theme before Flutter draws -->
+            <meta-data
+                android:name="io.flutter.embedding.android.LaunchTheme"
+                android:resource="@style/LaunchTheme"
+                />
+            <!-- ===== App Links (HTTPS) — opens your app from your domain =====
+                 NOTE: app verification needs https://<your-domain>/.well-known/assetlinks.json
+                 Adjust host/pathPrefix to your actual callback path(s).
+            -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="https"
+                    android:host="app.sara777s.com"
+                    android:pathPrefix="/deeplink" />
+                <!-- example: https://app.sarra777.net/deeplink/upi-callback?... -->
+            </intent-filter>
+
+            <!-- ===== Custom Scheme Deep Link (app-defined) =====
+                 Example: sara77://payment?status=SUCCESS&txnId=123
+                 Keep this separate from HTTPS filter.
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="sara77"
+                    android:host="payment" />
+            </intent-filter>
+
+            <!-- Launcher -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Flutter embedding -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+
+    <!-- ===== Android 11+ package visibility (queries) =====
+         Allows canLaunch/launch for these schemes/packages.
+    -->
+    <queries>
+        <!-- WhatsApp native scheme (whatsapp://) -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="whatsapp" />
+        </intent>
+
+        <!-- WhatsApp https fallback (wa.me links) -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" android:host="wa.me" />
+        </intent>
+
+        <!-- General https viewer (safe fallback) -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+
+        <!-- UPI scheme (generic handler discovery) -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="upi"/>
+        </intent>
+
+        <!-- Popular UPI packages -->
+        <package android:name="com.google.android.apps.nbu.paisa.user" /> <!-- Google Pay -->
+        <package android:name="com.phonepe.app" />                         <!-- PhonePe -->
+        <package android:name="net.one97.paytm" />                         <!-- Paytm (Play Store pkg) -->
+        <package android:name="com.whatsapp" />                            <!-- WhatsApp (optional) -->
+    </queries>
+
+</manifest>
